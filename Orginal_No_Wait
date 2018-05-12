@@ -1,0 +1,496 @@
+// COMPILE_OPTS|C:\Users\Anthony N. Harris\Desktop\M-Eng 5-27-17-.exe|C:\Windows\WinSxS\amd64_microsoft-windows-dxp-deviceexperience_31bf3856ad364e35_10.0.14393.1198_none_bcea54295453faa3\wmp.ico|CONSOLE=0|INCLUDES=1||RUNTIMES=1|BMPS=1
+//Set IGNORESPACES to 1 to force script interpreter to ignore spaces.
+//If using IGNORESPACES quote strings in {" ... "}
+//Let>IGNORESPACES=1
+
+//Data Inputs
+Input>video,Please select the video file for analysis
+Input>Res,Low or High Resolution? Enter "L" or "H",H
+Let>INPUT_BROWSE=0
+Input>xlsName, What is the name of the Excel file?
+Input>sheetName, What is the name of the Excel sheet?
+Input>taskNum, How many tasks do you want to analyze?
+WaitWindowOpen>%video% - VLC media player
+
+If>%Res%=H
+Goto>HighRes
+Else
+MoveWindow>%video% - VLC media player,850,7
+ResizeWindow>%video% - VLC media player,500,700
+Goto>SetMusclePosition
+Label>HighRes
+MoveWindow>%video% - VLC media player,1400,7
+ResizeWindow>%video% - VLC media player,500,1050
+Endif
+
+
+//Muscle Positions
+Label>SetMusclePosition
+Let>tmp0=Click the L Biceps
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XLBB,YLBB,csType
+
+Let>tmp0=Click the R Biceps
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XRBB,YRBB,csType
+
+Let>tmp0=Click the L Triceps
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XLTB,YLTB,csType
+
+Let>tmp0=Click the R Triceps
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XRTB,YRTB,csType
+
+Let>tmp0=Click the L Deltoid
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XLDT,YLDT,csType
+
+Let>tmp0=Click the R Deltoid
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XRDT,YRDT,csType
+
+Let>tmp0=Click the L Lat. Dorsi
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XLLD,YLLD,csType
+
+Let>tmp0=Click the R Lat. Dorsi
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XRLD,YRLD,csType
+
+Let>tmp0=Click the L Pectoralis
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XLPM,YLPM,csType
+
+Let>tmp0=Click the R Pectoralis
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XRPM,YRPM,csType
+
+Let>tmp0=Click the L Glut.
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XLGM,YLGM,csType
+
+Let>tmp0=Click the R Glut.
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XRGM,YRGM,csType
+
+Let>tmp0=Click the L Hamstring
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XLHF,YLHF,csType
+
+Let>tmp0=Click the R Hamstring
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XRHF,YRHF,csType
+
+Let>tmp0=Click the L Lat. Quad
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XLLQ,YLLQ,csType
+
+Let>tmp0=Click the R Lat. Quad
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XRLQ,YRLQ,csType
+
+Let>tmp0=Click the L Med. Quad.
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XLMQ,YLMQ,csType
+
+Let>tmp0=Click the R Med. Quad.
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+GetCursorPos>XRMQ,YRMQ,csType
+
+//Variables Setup
+Let>b=1
+Let>BB=1
+Let>BMSet=0
+Let>BMAdvance=0
+
+//Bookmark Selections
+Repeat>BMSet
+Let>tmp0=Click the Video Bookmark #%b%
+Let>MSG_STAYONTOP=1
+Let>MSG_CENTERED=1
+MessageModal>tmp0
+WaitKeyDown>VK1
+If>b=1
+GetCursorPos>Xbookmark1,Ybookmark1,csType
+Input>taskLength1, How long (in seconds) is task #%b%?
+Endif
+If>b=2
+GetCursorPos>Xbookmark2,Ybookmark2,csType
+Input>taskLength2, How long (in seconds) is task #%b%?
+Endif
+If>b=3
+GetCursorPos>Xbookmark3,Ybookmark3,csType
+Input>taskLength3, How long (in seconds) is task #%b%?
+Endif
+If>b=4
+GetCursorPos>Xbookmark4,Ybookmark4,csType
+Input>taskLength4, How long (in seconds) is task #%b%?
+Endif
+If>b=5
+GetCursorPos>Xbookmark5,Ybookmark5,csType
+Input>taskLength5, How long (in seconds) is task #%b%?
+Endif
+If>b=6
+GetCursorPos>Xbookmark6,Ybookmark6,csType
+Input>taskLength6, How long (in seconds) is task #%b%?
+Endif
+If>b=7
+GetCursorPos>Xbookmark7,Ybookmark7,csType
+Input>taskLength7, How long (in seconds) is task #%b%?
+Endif
+If>b=8
+GetCursorPos>Xbookmark8,Ybookmark8,csType
+Input>taskLength8, How long (in seconds) is task #%b%?
+Endif
+If>b=9
+GetCursorPos>Xbookmark9,Ybookmark9,csType
+Input>taskLength9, How long (in seconds) is task #%b%?
+Endif
+If>b=10
+GetCursorPos>Xbookmark10,Ybookmark10,csType
+Input>taskLength10, How long (in seconds) is task #%b%?
+Endif
+
+Let>b=b+1
+Let>BMSet=BMSet+1
+Until>BMSet=%taskNum%
+
+//Set Muscle Position
+Let>k=0
+Input>row, What row should I start in?
+Input>col, What column should I start in?
+Input>muscleNum, Which muscle should I start on? (1-9) %CRLF%Enter "0.5" increments for starting on Right Muscle %CRLF% 1 - Left Biceps %CRLF% 2 - Left Triceps %CRLF% 3 - Left Deltoid %CRLF% 4 - Left Lat. Dorsi %CRLF% 5 - Left Pectoralis %CRLF% 6 - Left Glutius %CRLF% 7 - Left Hamstring %CRLF% 8 - Left. Lat. Quad. %CRLF% 9 - Left Med. Quad.
+Let>BMReset=muscleNum
+Let>row0=row
+
+//Open Excel File
+XLOpen>%USERDOCUMENTS_DIR%\%xlsName%,1,new_muscle
+Let>mLabelcol=col-1
+
+//Task Repeating Muscle Reset
+Repeat>BMAdvance
+
+Repeat>BMReset
+//Set Video Position & Task Length
+If>BB=1
+MouseMove>%Xbookmark1%,%Ybookmark1%
+LDblClick
+Let>videoLength=taskLength1
+Endif
+If>BB=2
+MouseMove>%Xbookmark2%,%Ybookmark2%
+LDblClick
+Let>videoLength=taskLength2
+Endif
+If>BB=3
+MouseMove>%Xbookmark3%,%Ybookmark3%
+LDblClick
+Let>videoLength=taskLength3
+Endif
+If>BB=4
+MouseMove>%Xbookmark4%,%Ybookmark4%
+LDblClick
+Let>videoLength=taskLength4
+Endif
+If>BB=5
+MouseMove>%Xbookmark5%,%Ybookmark5%
+LDblClick
+Let>videoLength=taskLength5
+Endif
+If>BB=6
+MouseMove>%Xbookmark6%,%Ybookmark6%
+LDblClick
+Let>videoLength=taskLength6
+Endif
+If>BB=7
+MouseMove>%Xbookmark7%,%Ybookmark7%
+LDblClick
+Let>videoLength=taskLength7
+Endif
+If>BB=8
+MouseMove>%Xbookmark8%,%Ybookmark8%
+LDblClick
+Let>videoLength=taskLength8
+Endif
+If>BB=9
+MouseMove>%Xbookmark9%,%Ybookmark9%
+LDblClick
+Let>videoLength=taskLength9
+Endif
+If>BB=10
+MouseMove>%Xbookmark10%,%Ybookmark10%
+LDblClick
+Let>videoLength=taskLength10
+Endif
+
+//Video Advance Length
+Let>k0=24*videoLength
+
+//Muscle Selection
+If>muscleNum=1
+Let>Xcolor=XLBB
+Let>Ycolor=YLBB
+Let>mLabel=L Biceps
+Endif
+If>muscleNum=1.5
+Let>Xcolor=XRBB
+Let>Ycolor=YRBB
+Let>mLabel=R Biceps
+Endif
+If>muscleNum=2
+Let>Xcolor=XLTB
+Let>Ycolor=YLTB
+Let>mLabel=L Triceps
+Endif
+If>muscleNum=2.5
+Let>Xcolor=XRTB
+Let>Ycolor=YRTB
+Let>mLabel=R Triceps
+Endif
+If>muscleNum=3
+Let>Xcolor=XLDT
+Let>Ycolor=YLDT
+Let>mLabel=Left Deltoid
+Endif
+If>muscleNum=3.5
+Let>Xcolor=XRDT
+Let>Ycolor=YRDT
+Let>mLabel=R Deltoid
+Endif
+If>muscleNum=4
+Let>Xcolor=XLLD
+Let>Ycolor=YLLD
+Let>mLabel=L Lat.Dorsi
+Endif
+If>muscleNum=4.5
+Let>Xcolor=XRLD
+Let>Ycolor=YRLD
+Let>mLabel=R Lat.Dorsi
+Endif
+If>muscleNum=5
+Let>Xcolor=XLPM
+Let>Ycolor=YLPM
+Let>mLabel=L Pectoralis
+Endif
+If>muscleNum=5.5
+Let>Xcolor=XRPM
+Let>Ycolor=YRPM
+Let>mLabel=R Pectoralis
+Endif
+If>muscleNum=6
+Let>Xcolor=XLGM
+Let>Ycolor=YLGM
+Let>mLabel=L Glutius
+Endif
+If>muscleNum=6.5
+Let>Xcolor=XRGM
+Let>Ycolor=YRGM
+Let>mLabel=R Glutius
+Endif
+If>muscleNum=7
+Let>Xcolor=XLHF
+Let>Ycolor=YLHF
+Let>mLabel=L Hamstring
+Endif
+If>muscleNum=7.5
+Let>Xcolor=XRHF
+Let>Ycolor=YRHF
+Let>mLabel=R Hamstring
+Endif
+If>muscleNum=8
+Let>Xcolor=XLLQ
+Let>Ycolor=YLLQ
+Let>mLabel=Left Lat.Quad
+Endif
+If>muscleNum=8.5
+Let>Xcolor=XRLQ
+Let>Ycolor=YRLQ
+Let>mLabel=R Lat.Quad
+Endif
+If>muscleNum=9
+Let>Xcolor=XLMQ
+Let>Ycolor=YLMQ
+Let>mLabel=L Med.Quad
+Endif
+If>muscleNum=9.5
+Let>Xcolor=XRMQ
+Let>Ycolor=YRMQ
+Let>mLabel=R Med.Quad
+Endif
+
+//Set Muscle Label
+XLSetCell>new_muscle,%sheetName%,row,mLabelcol,%mLabel%,mcRes
+
+//Get Color
+Repeat>k
+
+GetPixelColor>Xcolor,Ycolor,mColor
+ColorToRGB>%mColor%,mR,mG,mB
+Let>mR=%mR%/255
+Let>mG=%mG%/255
+Let>mB=%mB%/255
+
+//No Hue Calc
+If>{(%mR% = %mB%) AND (%mR% = %mG%)}
+Let>mHueF=0
+Goto>SetCell
+Endif
+
+//Calc Hue 0
+If>{(%mR% > %mG%) AND (%mG% >= %mB%) }
+Let>max=mR
+Let>min=mB
+Let>mHue={(%mG%-%mB%)/(%max%-%min%)}
+Goto>LumCalc
+Endif
+
+If>{(%mR% > %mB%) AND (%mB% >= %mG%)}
+Let>max=mR
+Let>min=mG
+Let>mHue={(%mG%-%mB%)/(%max%-%min%)}
+Goto>LumCalc
+Endif
+
+If>{(%mG% > %mR%) AND (%mR% >= %mB%)}
+Let>max=mG
+Let>min=mB
+Let>mHue={2+((%mB%-%mR%)/(%max%-%min%))}
+Goto>LumCalc
+Endif
+
+If>{(%mG% > %mB%) AND (%mB% >= %mR%)}
+Let>max=mG
+Let>min=mR
+Let>mHue={2+((%mB%-%mR%)/(%max%-%min%))}
+Goto>LumCalc
+Endif
+
+If>{(%mB% > %mR%) AND (%mR% >= %mG%)}
+Let>max=mB
+Let>min=mG
+Let>mHue={4+((%mR%-%mG%)/(%max%-%min%))}
+Goto>LumCalc
+Endif
+
+If>{(%mB% > %mG%) AND (%mG% >= %mR%)}
+Let>max=mB
+Let>min=mR
+Let>mHue={4+((%mR%-%mG%)/(%max%-%min%))}
+Endif
+
+
+//LumCalc
+Label>LumCalc
+Let>Lum={(%min% + %max%)/2}
+
+Let>mHue0=%mHue%*60
+If>mHue0<0
+Let>mHueF=%mHue%+360
+Else
+Let>mHueF=mHue0
+Endif
+
+If>Lum<.50
+Let>mHueF=0
+Endif
+
+Label>SetCell
+XLSetCell>new_muscle,%sheetName%,row,col,%mHueF%,mcRes
+
+Press Down
+
+SetFocus>%video% - VLC media player
+Send>e
+Let>k=k+1
+Let>row=row+1
+
+Until>k=k0
+
+//Advance Muscle
+Let>muscleNum=muscleNum+.5
+Let>k=0
+Let>BMReset=BMReset+.5
+Let>MSG_STAYONTOP=0
+Let>MSG_CENTERED=0
+Let>MSG_HEIGHT=300
+Message>Variable Status:%CRLF%k=%k% %CRLF%muscleNum=%muscleNum% %CRLF%BB=%BB% %CRLF%b=%b% %CRLF%k0=%k0% %CRLF%BMReset=%BMReset% %CRLF%Est. Analysis Time = %ETA%hrs
+Until>BMReset=10
+
+//Bookmark Advance
+Let>BB=BB+1
+Let>row=row0
+Let>col=col+3
+Let>mLabelcol=mLabelcol+3
+Let>muscleNum=1
+Let>BMReset=1
+Let>BMAdvance=BMAdvance+1
+Until>BMAdvance=taskNum
+
+
+Let>MSG_STAYONTOP=0
+Let>MSG_CENTERED=0
+Let>INPUT_BROWSE=0
+Input>repeatAnalysis, Analysis Completed! Would you like to analyze another task? Yes (Press "Y") or No (Press "N"),Y
+If>%repeatAnalysis%=Y
+Goto>SetMusclePosition
+Else
+Let>MSG_STAYONTOP=0
+Let>MSG_CENTERED=0
+MessageModal>Analysis is completed!
+Endif
+
